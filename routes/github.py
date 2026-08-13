@@ -73,7 +73,7 @@ async def github_callback(
     try:
         owner_id = state_token.verify_state(state)
     except HTTPException:
-        return RedirectResponse(f"{settings.frontend_url}/settings?github=error")
+        return RedirectResponse(f"{settings.frontend_url}/#/settings?github=error")
 
     try:
                                                                          
@@ -101,6 +101,6 @@ async def github_callback(
         await github_app.sync_installation(supabase, owner_id=owner_id, installation_id=installation_id)
     except Exception:
         logger.exception("GitHub App callback failed for installation_id=%s", installation_id)
-        return RedirectResponse(f"{settings.frontend_url}/settings?github=error")
+        return RedirectResponse(f"{settings.frontend_url}/#/settings?github=error")
 
-    return RedirectResponse(f"{settings.frontend_url}/settings?github=connected")
+    return RedirectResponse(f"{settings.frontend_url}/#/settings?github=connected")
